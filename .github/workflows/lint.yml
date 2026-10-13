@@ -1,17 +1,24 @@
-name: Lint
+name: Python Lint
 
 on:
   push:
 
 jobs:
   run-linters:
-    name: Run linters
+    name: Run Python Linter
     runs-on: ubuntu-latest
 
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
       - name: Install linter
         run: pip install ruff
-      - name: check the files for linting
+
+      - name: Check files for linting errors
         run: ruff check .
